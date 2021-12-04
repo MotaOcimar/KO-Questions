@@ -30,6 +30,13 @@ contract main
         address[] downVoters;
     }
 
+    struct Pack
+    {
+        uint id;
+        string text;
+        int repupation;
+    }
+
     Question[] private questions;
     uint numQuestions;
     Question auxQuestion;
@@ -112,9 +119,21 @@ contract main
         return int(questions[questionId].answers[answerId].upVoters.length) - int(questions[questionId].answers[answerId].downVoters.length);
     }
     
-    function getQuestions() public view returns(Question[] memory)
+    function getQuestions() public view returns(Pack[] memory)
     {
-        return questions;
+        Pack[] memory packs = new Pack[](questions.length);
+        for (uint i = 0; i < questions.length; ++i)
+        {
+            packs[i].id = questions[i].id;
+            packs[i].text = questions[i].text;
+            packs[i].repupation = getReputationQ(questions[i].id);
+        }
+        return packs;
+    }
+
+    function getQuestion(uint questionId) public view returns(Question memory)
+    {
+        return questions[questionId];
     }
 
     function show() public view returns(uint[] memory, string[] memory)
