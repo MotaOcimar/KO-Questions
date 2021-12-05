@@ -1,5 +1,5 @@
 {
-    "address": "0x4f5Fbb2d2baD3635D00F33dF7D9cE7bB22c8747D",
+    "address": "0xd9145CCE52D386f254917e481eB44e9943F39138",
     "abi": [
         {
             "inputs": [
@@ -17,7 +17,8 @@
             "name": "doDownvoteA",
             "outputs": [],
             "stateMutability": "nonpayable",
-            "type": "function"
+            "type": "function",
+            "signature": "0x81900d97"
         },
         {
             "inputs": [
@@ -30,7 +31,8 @@
             "name": "doDownvoteQ",
             "outputs": [],
             "stateMutability": "nonpayable",
-            "type": "function"
+            "type": "function",
+            "signature": "0x7fd05051"
         },
         {
             "inputs": [
@@ -48,7 +50,8 @@
             "name": "doUpvoteA",
             "outputs": [],
             "stateMutability": "nonpayable",
-            "type": "function"
+            "type": "function",
+            "signature": "0x305254dd"
         },
         {
             "inputs": [
@@ -61,7 +64,72 @@
             "name": "doUpvoteQ",
             "outputs": [],
             "stateMutability": "nonpayable",
-            "type": "function"
+            "type": "function",
+            "signature": "0xe8dafe36"
+        },
+        {
+            "inputs": [],
+            "name": "getMyAnsweredQuestions",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "text",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "int256",
+                            "name": "repupation",
+                            "type": "int256"
+                        }
+                    ],
+                    "internalType": "struct main.Pack[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true,
+            "signature": "0xb539a593"
+        },
+        {
+            "inputs": [],
+            "name": "getMyQuestions",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "text",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "int256",
+                            "name": "repupation",
+                            "type": "int256"
+                        }
+                    ],
+                    "internalType": "struct main.Pack[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true,
+            "signature": "0xd09b420c"
         },
         {
             "inputs": [
@@ -139,7 +207,9 @@
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
+            "type": "function",
+            "constant": true,
+            "signature": "0xdb88176f"
         },
         {
             "inputs": [],
@@ -169,7 +239,9 @@
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
+            "type": "function",
+            "constant": true,
+            "signature": "0x97221ab7"
         },
         {
             "inputs": [
@@ -193,7 +265,9 @@
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
+            "type": "function",
+            "constant": true,
+            "signature": "0xde6f9768"
         },
         {
             "inputs": [
@@ -212,7 +286,9 @@
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
+            "type": "function",
+            "constant": true,
+            "signature": "0x0348026b"
         },
         {
             "inputs": [
@@ -230,7 +306,8 @@
             "name": "makeAnswer",
             "outputs": [],
             "stateMutability": "nonpayable",
-            "type": "function"
+            "type": "function",
+            "signature": "0x026e96a6"
         },
         {
             "inputs": [
@@ -243,25 +320,40 @@
             "name": "makeQuestion",
             "outputs": [],
             "stateMutability": "nonpayable",
-            "type": "function"
+            "type": "function",
+            "signature": "0xd20b4f7d"
         },
         {
             "inputs": [],
-            "name": "show",
+            "name": "showUser",
             "outputs": [
                 {
-                    "internalType": "uint256[]",
+                    "components": [
+                        {
+                            "internalType": "string",
+                            "name": "nickname",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "questionsAsked",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "questionsAnswered",
+                            "type": "uint256[]"
+                        }
+                    ],
+                    "internalType": "struct main.User",
                     "name": "",
-                    "type": "uint256[]"
-                },
-                {
-                    "internalType": "string[]",
-                    "name": "",
-                    "type": "string[]"
+                    "type": "tuple"
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
+            "type": "function",
+            "constant": true,
+            "signature": "0xbdb09c12"
         }
     ]
 }

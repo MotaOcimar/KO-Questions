@@ -59,6 +59,8 @@ contract main
         auxAnswer.author = msg.sender;
         auxAnswer.text = text;
         questions[questionId].answers.push(auxAnswer);
+        User storage user = login[msg.sender];
+        user.questionsAnswered.push(questionId);
     }
 
     function has(address[] memory array, address value) pure private returns(int)
@@ -136,15 +138,41 @@ contract main
         return questions[questionId];
     }
 
-    function show() public view returns(uint[] memory, string[] memory)
-    {   
-        uint[] memory questionId = new uint[](questions.length);
-        string[] memory questionText = new string[](questions.length);
-        for (uint i = 0; i < questions.length; ++i)
+    function getMyQuestions() public view returns(Pack[] memory)
+    {
+        User storage user = login[msg.sender];
+        Pack[] memory packs = new Pack[](user.questionsAsked.length);
+        for (uint i = 0; i < user.questionsAsked.length; ++i)
         {
-            questionId[i] = questions[i].id;
-            questionText[i] = questions[i].text;
+            packs[i].id = user.questionsAsked[i];
+            packs[i].text = questions[user.questionsAsked[i]].text;
+            packs[i].repupation = getReputationQ(user.questionsAsked[i]);
         }
-        return (questionId, questionText);
+        return packs;
+    }
+
+    function getMyAnsweredQuestions() public view returns(Pack[] memory)
+    {
+        User storage user = login[msg.sender];
+        Pack[] memory packs = new Pack[](user.questionsAnswered.length);
+        for (uint i = 0; i < user.questionsAnswered.length; ++i)
+        {
+            packs[i].id = user.questionsAnswered[i];
+            packs[i].text = questions[user.questionsAnswered[i]].text;
+            packs[i].repupation = getReputationQ(user.questionsAnswered[i]);
+        }
+        return packs;
+    }
+
+    function getNickname() public view returns(string memory)
+    {   
+        User storage user = login[msg.sender];
+        return user.nickname;
+    }
+
+    function showUser() public view returns(User memory)
+    {   
+        User storage user = login[msg.sender];
+        return user;
     }
 }
