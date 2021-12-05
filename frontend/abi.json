@@ -1,0 +1,264 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "questionId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "answerId",
+                "type": "uint256"
+            }
+        ],
+        "name": "doDownvoteA",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "questionId",
+                "type": "uint256"
+            }
+        ],
+        "name": "doDownvoteQ",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "questionId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "answerId",
+                "type": "uint256"
+            }
+        ],
+        "name": "doUpvoteA",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "questionId",
+                "type": "uint256"
+            }
+        ],
+        "name": "doUpvoteQ",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "questionId",
+                "type": "uint256"
+            }
+        ],
+        "name": "getQuestion",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "author",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "text",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "address[]",
+                        "name": "upVoters",
+                        "type": "address[]"
+                    },
+                    {
+                        "internalType": "address[]",
+                        "name": "downVoters",
+                        "type": "address[]"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "uint256",
+                                "name": "id",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "address",
+                                "name": "author",
+                                "type": "address"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "text",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "address[]",
+                                "name": "upVoters",
+                                "type": "address[]"
+                            },
+                            {
+                                "internalType": "address[]",
+                                "name": "downVoters",
+                                "type": "address[]"
+                            }
+                        ],
+                        "internalType": "struct main.Answer[]",
+                        "name": "answers",
+                        "type": "tuple[]"
+                    }
+                ],
+                "internalType": "struct main.Question",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getQuestions",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "text",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "int256",
+                        "name": "repupation",
+                        "type": "int256"
+                    }
+                ],
+                "internalType": "struct main.Pack[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "questionId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "answerId",
+                "type": "uint256"
+            }
+        ],
+        "name": "getReputationA",
+        "outputs": [
+            {
+                "internalType": "int256",
+                "name": "",
+                "type": "int256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "questionId",
+                "type": "uint256"
+            }
+        ],
+        "name": "getReputationQ",
+        "outputs": [
+            {
+                "internalType": "int256",
+                "name": "",
+                "type": "int256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "questionId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "text",
+                "type": "string"
+            }
+        ],
+        "name": "makeAnswer",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_text",
+                "type": "string"
+            }
+        ],
+        "name": "makeQuestion",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "show",
+        "outputs": [
+            {
+                "internalType": "uint256[]",
+                "name": "",
+                "type": "uint256[]"
+            },
+            {
+                "internalType": "string[]",
+                "name": "",
+                "type": "string[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]
