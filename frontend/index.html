@@ -14,8 +14,8 @@
             <h1>KO-Questions</h1>
             <h2>Questions</h2>
             <div class="list-group" id="questions"></div>
-            <a href="#" class="btn btn-primary">New question</a>
-            <a href="#" class="btn btn-secondary">My Q&A</a>
+            <a href="newQuestion.html" class="btn btn-primary">New question</a>
+            <a href="personal.html" class="btn btn-secondary">My Q&A</a>
         </div>
 
 		<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js"></script>
@@ -30,9 +30,11 @@
                 } else {
                     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
                 }
-                
-                var address = "0x005322D4922ef41ABe2b79E610707Db21f6aFf28";
-                $.getJSON('abi.json', function(abi) {
+                var address;
+                var abi;
+                $.getJSON('contract.json', function(contractInfo) {
+                    address = contractInfo.address;
+                    abi = contractInfo.abi;
                     contract = new web3.eth.Contract(abi, address);
                 }).then(function() {
                     return contract.methods.getQuestions().call();
