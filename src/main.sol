@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.10;
 
 contract main
@@ -15,7 +16,8 @@ contract main
     {
         uint id;
         address author;
-        string text;
+        string subject;
+        string content;
         address[] upVoters;
         address[] downVoters;
         Answer[] answers;
@@ -25,7 +27,7 @@ contract main
     {
         uint id;
         address author;
-        string text;
+        string content;
         address[] upVoters;
         address[] downVoters;
     }
@@ -42,22 +44,24 @@ contract main
     Question auxQuestion;
     Answer auxAnswer;
 
-    function makeQuestion(string memory _text) public
+    function makeQuestion(string memory subject, string memory content) public
     {
+        require(keccak256(abi.encodePacked(subject)) != keccak256(abi.encodePacked("")), "Subject cannot be empty");
         auxQuestion.id = numQuestions;
         auxQuestion.author = msg.sender;
-        auxQuestion.text = _text;
+        auxQuestion.subject = subject;
+        auxQuestion.content = content;
         questions.push(auxQuestion);
         User storage user = login[msg.sender];
         user.questionsAsked.push(numQuestions);
         numQuestions++;
     }
 
-    function makeAnswer(uint questionId, string memory text) public
+    function makeAnswer(uint questionId, string memory content) public
     {
         auxAnswer.id = questions[questionId].answers.length;
         auxAnswer.author = msg.sender;
-        auxAnswer.text = text;
+        auxAnswer.content = content;
         questions[questionId].answers.push(auxAnswer);
         User storage user = login[msg.sender];
         user.questionsAnswered.push(questionId);
@@ -127,7 +131,7 @@ contract main
         for (uint i = 0; i < questions.length; ++i)
         {
             packs[i].id = questions[i].id;
-            packs[i].text = questions[i].text;
+            packs[i].text = questions[i].subject;
             packs[i].repupation = getReputationQ(questions[i].id);
         }
         return packs;
@@ -145,7 +149,7 @@ contract main
         for (uint i = 0; i < user.questionsAsked.length; ++i)
         {
             packs[i].id = user.questionsAsked[i];
-            packs[i].text = questions[user.questionsAsked[i]].text;
+            packs[i].text = questions[user.questionsAsked[i]].subject;
             packs[i].repupation = getReputationQ(user.questionsAsked[i]);
         }
         return packs;
@@ -158,7 +162,7 @@ contract main
         for (uint i = 0; i < user.questionsAnswered.length; ++i)
         {
             packs[i].id = user.questionsAnswered[i];
-            packs[i].text = questions[user.questionsAnswered[i]].text;
+            packs[i].text = questions[user.questionsAnswered[i]].subject;
             packs[i].repupation = getReputationQ(user.questionsAnswered[i]);
         }
         return packs;

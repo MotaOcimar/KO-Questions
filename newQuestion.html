@@ -15,12 +15,17 @@
     <div class="container">
         <h1>KO-Questions</h1>
         <h2>Create your question!</h2>
-        <div class="list-group" id="questions"></div>
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="input" placeholder="Question input" aria-label="Question Input"
-                aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="submit">Submit</button>
+            <span class="input-group-text">Subject</span>
+            <input type="text" class="form-control" id="subject">
         </div>
+
+        <div class="form-floating">
+            <textarea class="form-control" id="content" placeholder="Content" style="height: 400px"></textarea>
+            <label for="floatingTextarea2">Content</label>
+        </div>
+        <br>
+        <a class="btn btn-primary" id="submit">Submit</a>
         <a href="index.html" class="btn btn-secondary">Back</a>
     </div>
 
@@ -46,7 +51,9 @@
 
         $('#submit').click(function () {
             web3.eth.getAccounts().then(function (accounts) {
-                contract.methods.makeQuestion($('#input').val()).send({ from: accounts[0] });
+                console.log($('#subject').val());
+                console.log($('#content').val());
+                contract.methods.makeQuestion($('#subject').val(), $('#content').val()).send({ from: accounts[0] });
             }).catch(function (account) {
                 if (account) {
                     alert('Some error has occurred, go to console!')
