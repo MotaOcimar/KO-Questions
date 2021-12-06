@@ -59,6 +59,7 @@ contract main
 
     function makeAnswer(uint questionId, string memory content) public
     {
+        require(keccak256(abi.encodePacked(content)) != keccak256(abi.encodePacked("")), "Please give him bizu!");
         auxAnswer.id = questions[questionId].answers.length;
         auxAnswer.author = msg.sender;
         auxAnswer.content = content;

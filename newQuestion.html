@@ -51,8 +51,6 @@
 
         $('#submit').click(function () {
             web3.eth.getAccounts().then(function (accounts) {
-                console.log($('#subject').val());
-                console.log($('#content').val());
                 contract.methods.makeQuestion($('#subject').val(), $('#content').val()).send({ from: accounts[0] });
             }).catch(function (account) {
                 if (account) {
