@@ -52,6 +52,7 @@
                             var entry = document.createElement('a');
                             entry.className = 'list-group-item list-group-item-action';
                             entry.innerHTML = questions[i].text;
+                            entry.href = 'question.html?questionId=' + questions[i].id;
                             list.appendChild(entry);
                         }
                     });
