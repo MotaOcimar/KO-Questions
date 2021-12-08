@@ -125,69 +125,73 @@
 
         $('#submit').click(function () {
             var content = $('#aContent').val();
-            return contract.methods.makeAnswer(questionId, content).send({from: account });
-        }).then(function(tx) {
+            contract.methods.makeAnswer(questionId, content).send({from: account })
+            .then(function(tx) {
             if(!alert("Your answer(" + tx.blockHash + ") has been submited successfully!")) {
                 window.location.reload();
             };
-        }).catch(function(tx) {
-            if (tx) {
-                alert('Some error has occurred, go to console!')
-            }
-            console.log(tx);
-            M.toast({html:tx})
+            }).catch(function(tx) {
+                if (tx) {
+                    alert('Some error has occurred, go to console!')
+                }
+                console.log(tx);
+                M.toast({html:tx})
+            });
         });
         
         upVote = function(i){
             var id = 'upvote-bnt-' + i;
             var btn = document.getElementById(id);
             btn.className = 'btn btn-secondary disabled';
-            return contract.methods.toggleUpvoteA(questionId, i).send({ from: account });
-        }.then(function(tx) {
+            contract.methods.toggleUpvoteA(questionId, i).send({ from: account })
+            .then(function(tx) {
             if(!alert("Your vote(" + tx.blockHash + ") has been registered successfully!")) {
                 window.location.reload();
             };
-        }).catch(function(tx) {
-            if (tx) {
-                alert('Some error has occurred, go to console!')
-            }
-            console.log(tx);
-            M.toast({html:tx})
-        });
+            }).catch(function(tx) {
+                if (tx) {
+                    alert('Some error has occurred, go to console!')
+                }
+                console.log(tx);
+                M.toast({html:tx})
+            });
+        };
 
         downVote = function(i){
             var id = 'downvote-bnt-' + i;
             var btn = document.getElementById(id);
             btn.className = 'btn btn-secondary disabled';
-            return contract.methods.toggleDownvoteA(questionId, i).send({ from: account });
-        }.then(function(tx) {
+            contract.methods.toggleDownvoteA(questionId, i).send({ from: account })
+            .then(function(tx) {
             if(!alert("Your vote(" + tx.blockHash + ") has been registered successfully!")) {
                 window.location.reload();
             };
-        }).catch(function(tx) {
-            if (tx) {
-                alert('Some error has occurred, go to console!')
-            }
-            console.log(tx);
-            M.toast({html:tx})
-        });
+            }).catch(function(tx) {
+                if (tx) {
+                    alert('Some error has occurred, go to console!')
+                }
+                console.log(tx);
+                M.toast({html:tx})
+            });
+        };
 
         toggleBestAnswer = function(i){
             var id = 'best-answer-bnt-' + i;
             var btn = document.getElementById(id);
             btn.className = 'btn btn-success disabled';
-            return contract.methods.toggleBestAnswer(questionId, i).send({ from: account });
-        }.then(function(tx) {
-            if(!alert("Your selection(" + tx.blockHash + ") has been registered successfully!")) {
+            contract.methods.toggleBestAnswer(questionId, i).send({ from: account })
+            .then(function(tx) {
+            if(!alert("Your answer(" + tx.blockHash + ") has been registered successfully!")) {
                 window.location.reload();
             };
-        }).catch(function(tx) {
-            if (tx) {
-                alert('Some error has occurred, go to console!')
-            }
-            console.log(tx);
-            M.toast({html:tx})
-        });
+            }).catch(function(tx) {
+                if (tx) {
+                    alert('Some error has occurred, go to console!')
+                }
+                console.log(tx);
+                M.toast({html:tx})
+            });
+        };
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
