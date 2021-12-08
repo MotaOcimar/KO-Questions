@@ -27,7 +27,7 @@
         <!-- testes do Ocimar: -->
 
         
-        <div class="list-group gap-4" id="answers-testes">
+        <!-- <div class="list-group gap-4" id="answers-testes">
             <div class="list-group list-group-horizontal">
                 <div class="btn-group-vertical">
                     <button class="btn btn-outline-secondary"><i class="bi bi-caret-up-fill"></i></button>
@@ -48,7 +48,7 @@
                 <span class="d-flex align-items-center btn btn-success"><i class="bi bi-check-lg"></i></span>                
             </div>
         </div>
-        <br>
+        <br> -->
         
         <!-- fim dos testes do Ocimar -->
 
@@ -93,18 +93,28 @@
                             var entry = document.createElement('div');
                             var answer = answers[i];
                             var reputation = answer.upVoters.length - answer.downVoters.length;
-                            console.log(answer);
                             entry.className = 'list-group list-group-horizontal';
-                            entry.innerHTML =   '<div class="btn-group-vertical">'+
-                                                    '<button id="upvote-bnt-' + i + '" onclick=upVote(' + i + ') class="btn btn-outline-secondary"><i class="bi bi-caret-up-fill"></i></button>'+
-                                                    '<a class="btn btn-outline-secondary">' + reputation + '</a>'+
-                                                    '<button id="downvote-bnt-' + i + '" onclick=downVote(' + i + ') class="btn btn-outline-secondary"><i class="bi bi-caret-down-fill"></i></button>'+
-                                                '</div>'+
-                                                '<a class="list-group-item list-group-item-action">' + answer.content + '</a>';
-                            if (account == question.author) {
-                                entry.innerHTML += '<button id="select-bnt-' + i + '" onclick=selectBestAnswer(' + i + ') type="button" class="btn btn-success"><i class="bi bi-check-lg"></i></button>';
-                            } else if (i == question.bestAnswer) {
-                                entry.innerHTML += '<span class="d-flex align-items-center btn btn-success"><i class="bi bi-check-lg"></i></span>';
+                            var buttonList = document.createElement('div');
+                            buttonList.className = 'btn-group-vertical';
+                            if (answer.upVoters.includes(account)) {
+                                buttonList.innerHTML += '<button id="upvote-bnt-' + i + '" onclick=upVote(' + i + ') class="btn btn-secondary"><i class="bi bi-caret-up-fill"></i></button>';
+                            } else {
+                                buttonList.innerHTML += '<button id="upvote-bnt-' + i + '" onclick=upVote(' + i + ') class="btn btn-outline-secondary"><i class="bi bi-caret-up-fill"></i></button>';
+                            }
+                            buttonList.innerHTML += '<a class="btn btn-secondary">' + reputation + '</a>';
+                            if (answer.downVoters.includes(account)) {
+                                buttonList.innerHTML += '<button id="downvote-bnt-' + i + '" onclick=downVote(' + i + ') class="btn btn-secondary"><i class="bi bi-caret-down-fill"></i></button>';
+                            }
+                            else {
+                                buttonList.innerHTML += '<button id="downvote-bnt-' + i + '" onclick=downVote(' + i + ') class="btn btn-outline-secondary"><i class="bi bi-caret-down-fill"></i></button>';
+                            }
+                            entry.appendChild(buttonList);
+                            entry.innerHTML += '<a class="list-group-item list-group-item-action">' + answer.content + '</a>';
+                            
+                            if (i == question.bestAnswer) {
+                                entry.innerHTML += '<button id="best-answer-bnt-' + i + '" onclick=toggleBestAnswer(' + i + ') type="button" class="btn btn-success"><i class="bi bi-check-lg"></i></button>';
+                            } else if (account == question.author) {
+                                entry.innerHTML += '<button id="best-answer-bnt-' + i + '" onclick=toggleBestAnswer(' + i + ') type="button" class="btn btn-outline-success"><i class="bi bi-check-lg"></i></button>';
                             }
                             list.appendChild(entry);
                         }
@@ -131,8 +141,8 @@
         upVote = function(i){
             var id = 'upvote-bnt-' + i;
             var btn = document.getElementById(id);
-            btn.classList.add('disabled');
-            return contract.methods.doUpvoteA(questionId, i).send({from: account });
+            btn.className = 'btn btn-secondary disabled';
+            return contract.methods.toggleUpvoteA(questionId, i).send({ from: account });
         }.then(function(tx) {
             if(!alert("Your vote(" + tx.blockHash + ") has been registered successfully!")) {
                 window.location.reload();
@@ -148,8 +158,8 @@
         downVote = function(i){
             var id = 'downvote-bnt-' + i;
             var btn = document.getElementById(id);
-            btn.classList.add('disabled');
-            contract.methods.doDownvoteA(questionId, i).send({ from: account });
+            btn.className = 'btn btn-secondary disabled';
+            return contract.methods.toggleDownvoteA(questionId, i).send({ from: account });
         }.then(function(tx) {
             if(!alert("Your vote(" + tx.blockHash + ") has been registered successfully!")) {
                 window.location.reload();
@@ -162,11 +172,11 @@
             M.toast({html:tx})
         });
 
-        selectBestAnswer = function(i){
-            var id = 'select-bnt-' + i;
+        toggleBestAnswer = function(i){
+            var id = 'best-answer-bnt-' + i;
             var btn = document.getElementById(id);
-            btn.classList.add('disabled');
-            contract.methods.selecBestAnswer(questionId, i).send({ from: account });
+            btn.className = 'btn btn-success disabled';
+            return contract.methods.toggleBestAnswer(questionId, i).send({ from: account });
         }.then(function(tx) {
             if(!alert("Your selection(" + tx.blockHash + ") has been registered successfully!")) {
                 window.location.reload();
