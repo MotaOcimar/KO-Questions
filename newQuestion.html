@@ -49,14 +49,19 @@
             });
         });
 
-        $('#submit').click(function () {
+        $('#submit').click(function() {
             web3.eth.getAccounts().then(function (accounts) {
-                contract.methods.makeQuestion($('#subject').val(), $('#content').val()).send({ from: accounts[0] });
-            }).catch(function (account) {
-                if (account) {
+                return contract.methods.makeQuestion($('#subject').val(), $('#content').val()).send({ from: accounts[0] });
+            }).then(function(tx) {
+                if(!alert("Your submission(" + tx.blockHash + ") has been done successfully!")) {
+                    location.replace("personal.html")
+                };
+            }).catch(function(tx) {
+                if (tx) {
                     alert('Some error has occurred, go to console!')
                 }
-                console.log(account);
+                console.log(tx);
+                M.toast({html:tx})
             })
         });
     </script>
