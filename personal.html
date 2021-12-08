@@ -14,7 +14,7 @@
 <body>
     <div class="container">
         <h1>KO-Questions</h1>
-        <h2>my Q&A</h2>
+        <h2>My Q&A</h2>
         <div class="badge bg-primary text-wrap" style="width: 12rem;" id="reputation">
             Loarding...
         </div>
@@ -48,7 +48,7 @@
                 contract = new web3.eth.Contract(abi, address);
                 $(contract).ready(web3.eth.getAccounts().then(function (accounts) {
                     account = accounts[0];
-                    contract.methods.getmyReputation().call({ from: account }).then(function(reputation) {
+                    contract.methods.getMyReputation().call({ from: account }).then(function(reputation) {
                         document.getElementById('reputation').innerHTML = "Your reputation: " + reputation;
                     })
                     contract.methods.getMyQuestions().call({ from: account }).then(function(questions) {

@@ -67,7 +67,20 @@ contract main
         auxAnswer.content = content;
         questions[questionId].answers.push(auxAnswer);
         User storage user = login[msg.sender];
-        user.answeredQuestions.push(questionId);
+        if ( has(user.answeredQuestions, questionId) == -1 )
+        {
+            user.answeredQuestions.push(questionId);
+        }
+    }
+
+    function has(uint[] memory array, uint value) pure private returns(int)
+    {
+        for (uint i = 0; i < array.length; ++i)
+        {
+            if (array[i] == value)
+                return int(i);
+        }
+        return -1;
     }
 
     function has(address[] memory array, address value) pure private returns(int)
@@ -90,32 +103,52 @@ contract main
         }
     }
 
-    function doUpvoteQ(uint questionId) public
+    function toggleUpvoteQ(uint questionId) public
     {   
-        require(has(questions[questionId].upVoters, msg.sender) == -1, "You already upvoted this question");
-        remove(questions[questionId].downVoters, msg.sender);
-        questions[questionId].upVoters.push(msg.sender);
+        if (has(questions[questionId].upVoters, msg.sender) == -1)
+        {
+            remove(questions[questionId].downVoters, msg.sender);
+            questions[questionId].upVoters.push(msg.sender);
+        }
+        else {
+            remove(questions[questionId].upVoters, msg.sender);
+        }
     }
 
-    function doDownvoteQ(uint questionId) public
+    function toggleDownvoteQ(uint questionId) public
     {
-        require(has(questions[questionId].downVoters, msg.sender) == -1, "You already downvoted this question");
-        remove(questions[questionId].upVoters, msg.sender);
-        questions[questionId].downVoters.push(msg.sender);
+        if (has(questions[questionId].downVoters, msg.sender) == -1)
+        {
+            remove(questions[questionId].upVoters, msg.sender);
+            questions[questionId].downVoters.push(msg.sender);
+        }
+        else {
+            remove(questions[questionId].downVoters, msg.sender);
+        }
     }
 
-    function doUpvoteA(uint questionId, uint answerId) public
+    function toggleUpvoteA(uint questionId, uint answerId) public
     {
-        require(has(questions[questionId].answers[answerId].upVoters, msg.sender) == -1, "You already upvoted this answer");
-        remove(questions[questionId].answers[answerId].downVoters, msg.sender);
-        questions[questionId].answers[answerId].upVoters.push(msg.sender);
+        if (has(questions[questionId].answers[answerId].upVoters, msg.sender) == -1)
+        {
+            remove(questions[questionId].answers[answerId].downVoters, msg.sender);
+            questions[questionId].answers[answerId].upVoters.push(msg.sender);
+        }
+        else {
+            remove(questions[questionId].answers[answerId].upVoters, msg.sender);
+        }
     }
 
-    function doDownvoteA(uint questionId, uint answerId) public
+    function toggleDownvoteA(uint questionId, uint answerId) public
     {
-        require(has(questions[questionId].answers[answerId].downVoters, msg.sender) == -1, "You already downvoted this answer");
-        remove(questions[questionId].answers[answerId].upVoters, msg.sender);
-        questions[questionId].answers[answerId].downVoters.push(msg.sender);
+        if (has(questions[questionId].answers[answerId].downVoters, msg.sender) == -1)
+        {
+            remove(questions[questionId].answers[answerId].upVoters, msg.sender);
+            questions[questionId].answers[answerId].downVoters.push(msg.sender);
+        }
+        else {
+            remove(questions[questionId].answers[answerId].downVoters, msg.sender);
+        }
     }
 
     function getReputationQ(uint questionId) view public returns(int)
