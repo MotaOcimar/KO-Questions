@@ -15,7 +15,9 @@
     <div class="container">
         <h1>KO-Questions</h1>
         <h2>my Q&A</h2>
-        <br>
+        <div class="badge bg-primary text-wrap" style="width: 12rem;" id="reputation">
+            Loarding...
+        </div>
         <h3>My questions</h3>
         <div class="list-group" id="myQuestions"></div>
         <br>
@@ -46,7 +48,10 @@
                 contract = new web3.eth.Contract(abi, address);
                 $(contract).ready(web3.eth.getAccounts().then(function (accounts) {
                     account = accounts[0];
-                    contract.methods.getMyQuestions().call({ from: account }).then(function (questions) {
+                    contract.methods.getmyReputation().call({ from: account }).then(function(reputation) {
+                        document.getElementById('reputation').innerHTML = "Your reputation: " + reputation;
+                    })
+                    contract.methods.getMyQuestions().call({ from: account }).then(function(questions) {
                         var list = document.getElementById('myQuestions');
                         for (var i = 0; i < questions.length; i++) {
                             var entry = document.createElement('a');
@@ -56,7 +61,7 @@
                             list.appendChild(entry);
                         }
                     });
-                    contract.methods.getMyAnsweredQuestions().call({ from: account }).then(function (questions) {
+                    contract.methods.getMyAnsweredQuestions().call({ from: account }).then(function(questions) {
                         var list = document.getElementById('myAnsweredQuestions');
                         for (var i = 0; i < questions.length; i++) {
                             var entry = document.createElement('a');

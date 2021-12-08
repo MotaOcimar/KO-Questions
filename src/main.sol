@@ -8,8 +8,8 @@ contract main
     struct User
     {
         string nickname;
-        uint[] questionsAsked;
-        uint[] questionsAnswered;
+        uint[] askedQuestions;
+        uint[] answeredQuestions;
     }
 
     struct Question
@@ -21,6 +21,7 @@ contract main
         address[] upVoters;
         address[] downVoters;
         Answer[] answers;
+        int bestAnswer;
     }
 
     struct Answer
@@ -36,7 +37,7 @@ contract main
     {
         uint id;
         string text;
-        int repupation;
+        int reputation;
     }
 
     Question[] private questions;
@@ -51,9 +52,10 @@ contract main
         auxQuestion.author = msg.sender;
         auxQuestion.subject = subject;
         auxQuestion.content = content;
+        auxQuestion.bestAnswer = -1; // Not selected
         questions.push(auxQuestion);
         User storage user = login[msg.sender];
-        user.questionsAsked.push(numQuestions);
+        user.askedQuestions.push(numQuestions);
         numQuestions++;
     }
 
@@ -65,7 +67,7 @@ contract main
         auxAnswer.content = content;
         questions[questionId].answers.push(auxAnswer);
         User storage user = login[msg.sender];
-        user.questionsAnswered.push(questionId);
+        user.answeredQuestions.push(questionId);
     }
 
     function has(address[] memory array, address value) pure private returns(int)
@@ -133,7 +135,7 @@ contract main
         {
             packs[i].id = questions[i].id;
             packs[i].text = questions[i].subject;
-            packs[i].repupation = getReputationQ(questions[i].id);
+            packs[i].reputation = getReputationQ(questions[i].id);
         }
         return packs;
     }
@@ -146,12 +148,12 @@ contract main
     function getMyQuestions() public view returns(Pack[] memory)
     {
         User storage user = login[msg.sender];
-        Pack[] memory packs = new Pack[](user.questionsAsked.length);
-        for (uint i = 0; i < user.questionsAsked.length; ++i)
+        Pack[] memory packs = new Pack[](user.askedQuestions.length);
+        for (uint i = 0; i < user.askedQuestions.length; ++i)
         {
-            packs[i].id = user.questionsAsked[i];
-            packs[i].text = questions[user.questionsAsked[i]].subject;
-            packs[i].repupation = getReputationQ(user.questionsAsked[i]);
+            packs[i].id = user.askedQuestions[i];
+            packs[i].text = questions[user.askedQuestions[i]].subject;
+            packs[i].reputation = getReputationQ(user.askedQuestions[i]);
         }
         return packs;
     }
@@ -159,14 +161,38 @@ contract main
     function getMyAnsweredQuestions() public view returns(Pack[] memory)
     {
         User storage user = login[msg.sender];
-        Pack[] memory packs = new Pack[](user.questionsAnswered.length);
-        for (uint i = 0; i < user.questionsAnswered.length; ++i)
+        Pack[] memory packs = new Pack[](user.answeredQuestions.length);
+        for (uint i = 0; i < user.answeredQuestions.length; ++i)
         {
-            packs[i].id = user.questionsAnswered[i];
-            packs[i].text = questions[user.questionsAnswered[i]].subject;
-            packs[i].repupation = getReputationQ(user.questionsAnswered[i]);
+            packs[i].id = user.answeredQuestions[i];
+            packs[i].text = questions[user.answeredQuestions[i]].subject;
+            packs[i].reputation = getReputationQ(user.answeredQuestions[i]);
         }
         return packs;
+    }
+
+    function getMyReputation() public view returns(uint)
+    {
+        uint reputation = 0;
+        User storage user  = login[msg.sender];
+        for (uint i = 0; i < user.answeredQuestions.length; ++i)
+        {
+            uint questionId = user.answeredQuestions[i];
+            int bestAnswerId = questions[questionId].bestAnswer;
+            Answer[] memory answers = questions[questionId].answers;
+            if (bestAnswerId > -1 && answers[uint(bestAnswerId)].author == msg.sender)
+            {
+                reputation++;
+            }
+        }
+        return reputation;
+    }
+
+    function selectBestAnswer(uint questionId, uint answerId) public
+    {
+        require(answerId < questions[questionId].answers.length);
+        require(msg.sender == questions[questionId].author);
+        questions[questionId].bestAnswer = int(answerId);
     }
 
     function getNickname() public view returns(string memory)

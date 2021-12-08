@@ -26,8 +26,8 @@
 
         <!-- testes do Ocimar: -->
 
-<!--         
-        <div class="list-group gap-4" id="answers">
+        
+        <div class="list-group gap-4" id="answers-testes">
             <div class="list-group list-group-horizontal">
                 <div class="btn-group-vertical">
                     <button class="btn btn-outline-secondary"><i class="bi bi-caret-up-fill"></i></button>
@@ -35,19 +35,21 @@
                     <button class="btn btn-outline-secondary"><i class="bi bi-caret-down-fill"></i></button>
                 </div>    
                 <a class="list-group-item list-group-item-action">oi</a>
+                <button type="button" class="btn btn-success"><i class="bi bi-check-lg"></i></button>
             </div>
             
             <div class="list-group list-group-horizontal">
                 <div class="btn-group-vertical">
                     <button class="btn btn-outline-secondary"><i class="bi bi-caret-up-fill"></i></button>
+                    <a class="btn btn-outline-secondary">1</a>
                     <button class="btn btn-outline-secondary"><i class="bi bi-caret-down-fill"></i></button>
                 </div>
                 <a class="list-group-item list-group-item-action">Tchau</a>
-                
+                <span class="d-flex align-items-center btn btn-success"><i class="bi bi-check-lg"></i></span>                
             </div>
         </div>
         <br>
-         -->
+        
         <!-- fim dos testes do Ocimar -->
 
         <div class="form-floating">
@@ -58,6 +60,7 @@
         <a class="btn btn-primary" id="submit">Submit</a>
         <a href="index.html" class="btn btn-secondary">Home</a>
     </div>
+    <br>
 
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
@@ -82,8 +85,8 @@
                 $(contract).ready(web3.eth.getAccounts().then(function (accounts) {
                     account = accounts[0];
                     contract.methods.getQuestion(questionId).call({ from: account }).then(function (question) {
-                        $('#subject').text(question[2]);
-                        $('#qContent').text(question[3]);
+                        $('#subject').text(question.subject);
+                        $('#qContent').text(question.content);
                         var list = document.getElementById('answers');
                         var answers = question[6];
                         for (var i = 0; i < answers.length; i++) {
@@ -98,6 +101,11 @@
                                                     '<button id="downvote-bnt-' + i + '" onclick=downVote(' + i + ') class="btn btn-outline-secondary"><i class="bi bi-caret-down-fill"></i></button>'+
                                                 '</div>'+
                                                 '<a class="list-group-item list-group-item-action">' + answer.content + '</a>';
+                            if (account == question.author) {
+                                entry.innerHTML += '<button id="select-bnt-' + i + '" onclick=selectBestAnswer(' + i + ') type="button" class="btn btn-success"><i class="bi bi-check-lg"></i></button>';
+                            } else if (i == question.bestAnswer) {
+                                entry.innerHTML += '<span class="d-flex align-items-center btn btn-success"><i class="bi bi-check-lg"></i></span>';
+                            }
                             list.appendChild(entry);
                         }
                     });
@@ -121,6 +129,12 @@
             var btn = document.getElementById(id);
             btn.classList.add('disabled');
             contract.methods.doDownvoteA(questionId, i).send({ from: account });
+        }
+        selectBestAnswer = function(i){
+            var id = 'select-bnt-' + i;
+            var btn = document.getElementById(id);
+            btn.classList.add('disabled');
+            contract.methods.selecBestAnswer(questionId, i).send({ from: account });
         }
     </script>
 

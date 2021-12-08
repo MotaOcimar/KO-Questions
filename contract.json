@@ -1,5 +1,5 @@
 {
-    "address": "0xFa3C96277463eebA75577D99f813bEFcAF79D624",
+    "address": "0xc3054F20142cf94aF5719778D70B26fab49c5FBe",
     "abi": [
         {
             "inputs": [
@@ -81,7 +81,7 @@
                         },
                         {
                             "internalType": "int256",
-                            "name": "repupation",
+                            "name": "reputation",
                             "type": "int256"
                         }
                     ],
@@ -111,13 +111,26 @@
                         },
                         {
                             "internalType": "int256",
-                            "name": "repupation",
+                            "name": "reputation",
                             "type": "int256"
                         }
                     ],
                     "internalType": "struct main.Pack[]",
                     "name": "",
                     "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getMyReputation",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -209,6 +222,11 @@
                             "internalType": "struct main.Answer[]",
                             "name": "answers",
                             "type": "tuple[]"
+                        },
+                        {
+                            "internalType": "int256",
+                            "name": "bestAnswer",
+                            "type": "int256"
                         }
                     ],
                     "internalType": "struct main.Question",
@@ -237,7 +255,7 @@
                         },
                         {
                             "internalType": "int256",
-                            "name": "repupation",
+                            "name": "reputation",
                             "type": "int256"
                         }
                     ],
@@ -329,6 +347,24 @@
             "type": "function"
         },
         {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "questionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "answerId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "selectBestAnswer",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
             "inputs": [],
             "name": "showUser",
             "outputs": [
@@ -341,12 +377,12 @@
                         },
                         {
                             "internalType": "uint256[]",
-                            "name": "questionsAsked",
+                            "name": "askedQuestions",
                             "type": "uint256[]"
                         },
                         {
                             "internalType": "uint256[]",
-                            "name": "questionsAnswered",
+                            "name": "answeredQuestions",
                             "type": "uint256[]"
                         }
                     ],
