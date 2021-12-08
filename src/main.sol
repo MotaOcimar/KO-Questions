@@ -221,11 +221,17 @@ contract main
         return reputation;
     }
 
-    function selectBestAnswer(uint questionId, uint answerId) public
+    function toggleBestAnswer(uint questionId, uint answerId) public
     {
         require(answerId < questions[questionId].answers.length);
         require(msg.sender == questions[questionId].author);
-        questions[questionId].bestAnswer = int(answerId);
+        if (questions[questionId].bestAnswer == int(answerId))
+        {
+            questions[questionId].bestAnswer = -1;
+        }
+        else {
+            questions[questionId].bestAnswer = int(answerId);
+        }
     }
 
     function getNickname() public view returns(string memory)

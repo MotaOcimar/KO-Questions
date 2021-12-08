@@ -112,9 +112,9 @@
                             entry.innerHTML += '<a class="list-group-item list-group-item-action">' + answer.content + '</a>';
                             
                             if (i == question.bestAnswer) {
-                                entry.innerHTML += '<span class="d-flex align-items-center btn btn-success"><i class="bi bi-check-lg"></i></span>';
+                                entry.innerHTML += '<button id="best-answer-bnt-' + i + '" onclick=toggleBestAnswer(' + i + ') type="button" class="btn btn-success"><i class="bi bi-check-lg"></i></button>';
                             } else if (account == question.author) {
-                                entry.innerHTML += '<button id="select-bnt-' + i + '" onclick=selectBestAnswer(' + i + ') type="button" class="btn btn-outline-success"><i class="bi bi-check-lg"></i></button>';
+                                entry.innerHTML += '<button id="best-answer-bnt-' + i + '" onclick=toggleBestAnswer(' + i + ') type="button" class="btn btn-outline-success"><i class="bi bi-check-lg"></i></button>';
                             }
                             list.appendChild(entry);
                         }
@@ -140,11 +140,11 @@
             btn.className = 'btn btn-secondary disabled';
             contract.methods.toggleDownvoteA(questionId, i).send({ from: account });
         }
-        selectBestAnswer = function(i){
-            var id = 'select-bnt-' + i;
+        toggleBestAnswer = function(i){
+            var id = 'best-answer-bnt-' + i;
             var btn = document.getElementById(id);
             btn.className = 'btn btn-success disabled';
-            contract.methods.selectBestAnswer(questionId, i).send({ from: account });
+            contract.methods.toggleBestAnswer(questionId, i).send({ from: account });
         }
     </script>
 

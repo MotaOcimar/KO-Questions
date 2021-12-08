@@ -1,5 +1,5 @@
 {
-    "address": "0xCBE8917633D36D4c7C2E426d8082F498c2267184",
+    "address": "0x01300E6E15B3D35f14b3c7e088b772FD48c59dBF",
     "abi": [
         {
             "inputs": [],
@@ -303,25 +303,6 @@
             "signature": "0x585bdb4a"
         },
         {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "questionId",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "answerId",
-                    "type": "uint256"
-                }
-            ],
-            "name": "selectBestAnswer",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function",
-            "signature": "0x90a3f588"
-        },
-        {
             "inputs": [],
             "name": "showUser",
             "outputs": [
@@ -352,6 +333,25 @@
             "type": "function",
             "constant": true,
             "signature": "0xbdb09c12"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "questionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "answerId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "toggleBestAnswer",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "signature": "0x3b9ca9a8"
         },
         {
             "inputs": [
