@@ -88,7 +88,7 @@
                         $('#subject').text(question.subject);
                         $('#qContent').text(question.content);
                         var list = document.getElementById('answers');
-                        var answers = question[6];
+                        var answers = question.answers;
                         for (var i = 0; i < answers.length; i++) {
                             var entry = document.createElement('div');
                             var answer = answers[i];

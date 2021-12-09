@@ -7,7 +7,6 @@ contract main
 
     struct User
     {
-        string nickname;
         uint[] askedQuestions;
         uint[] answeredQuestions;
     }
@@ -18,8 +17,6 @@ contract main
         address author;
         string subject;
         string content;
-        address[] upVoters;
-        address[] downVoters;
         Answer[] answers;
         int bestAnswer;
     }
@@ -37,7 +34,6 @@ contract main
     {
         uint id;
         string text;
-        int reputation;
     }
 
     Question[] private questions;
@@ -103,30 +99,6 @@ contract main
         }
     }
 
-    function toggleUpvoteQ(uint questionId) public
-    {   
-        if (has(questions[questionId].upVoters, msg.sender) == -1)
-        {
-            remove(questions[questionId].downVoters, msg.sender);
-            questions[questionId].upVoters.push(msg.sender);
-        }
-        else {
-            remove(questions[questionId].upVoters, msg.sender);
-        }
-    }
-
-    function toggleDownvoteQ(uint questionId) public
-    {
-        if (has(questions[questionId].downVoters, msg.sender) == -1)
-        {
-            remove(questions[questionId].upVoters, msg.sender);
-            questions[questionId].downVoters.push(msg.sender);
-        }
-        else {
-            remove(questions[questionId].downVoters, msg.sender);
-        }
-    }
-
     function toggleUpvoteA(uint questionId, uint answerId) public
     {
         if (has(questions[questionId].answers[answerId].upVoters, msg.sender) == -1)
@@ -151,11 +123,6 @@ contract main
         }
     }
 
-    function getReputationQ(uint questionId) view public returns(int)
-    {
-        return int(questions[questionId].upVoters.length) - int(questions[questionId].downVoters.length);
-    }
-
     function getReputationA(uint questionId, uint answerId) view public returns(int)
     {
         return int(questions[questionId].answers[answerId].upVoters.length) - int(questions[questionId].answers[answerId].downVoters.length);
@@ -168,7 +135,6 @@ contract main
         {
             packs[i].id = questions[i].id;
             packs[i].text = questions[i].subject;
-            packs[i].reputation = getReputationQ(questions[i].id);
         }
         return packs;
     }
@@ -186,7 +152,6 @@ contract main
         {
             packs[i].id = user.askedQuestions[i];
             packs[i].text = questions[user.askedQuestions[i]].subject;
-            packs[i].reputation = getReputationQ(user.askedQuestions[i]);
         }
         return packs;
     }
@@ -199,7 +164,6 @@ contract main
         {
             packs[i].id = user.answeredQuestions[i];
             packs[i].text = questions[user.answeredQuestions[i]].subject;
-            packs[i].reputation = getReputationQ(user.answeredQuestions[i]);
         }
         return packs;
     }
@@ -232,17 +196,5 @@ contract main
         else {
             questions[questionId].bestAnswer = int(answerId);
         }
-    }
-
-    function getNickname() public view returns(string memory)
-    {   
-        User storage user = login[msg.sender];
-        return user.nickname;
-    }
-
-    function showUser() public view returns(User memory)
-    {   
-        User storage user = login[msg.sender];
-        return user;
     }
 }

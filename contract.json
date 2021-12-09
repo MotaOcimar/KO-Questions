@@ -1,5 +1,5 @@
 {
-    "address": "0xaCA7A276F79a07efA66e6dE3222d5C9797a9c38F",
+    "address": "0x3627CE19C3d1432c2fd276D2f71F5401D3D873CE",
     "abi": [
         {
             "inputs": [],
@@ -16,11 +16,6 @@
                             "internalType": "string",
                             "name": "text",
                             "type": "string"
-                        },
-                        {
-                            "internalType": "int256",
-                            "name": "reputation",
-                            "type": "int256"
                         }
                     ],
                     "internalType": "struct main.Pack[]",
@@ -29,9 +24,7 @@
                 }
             ],
             "stateMutability": "view",
-            "type": "function",
-            "constant": true,
-            "signature": "0xb539a593"
+            "type": "function"
         },
         {
             "inputs": [],
@@ -48,11 +41,6 @@
                             "internalType": "string",
                             "name": "text",
                             "type": "string"
-                        },
-                        {
-                            "internalType": "int256",
-                            "name": "reputation",
-                            "type": "int256"
                         }
                     ],
                     "internalType": "struct main.Pack[]",
@@ -61,9 +49,7 @@
                 }
             ],
             "stateMutability": "view",
-            "type": "function",
-            "constant": true,
-            "signature": "0xd09b420c"
+            "type": "function"
         },
         {
             "inputs": [],
@@ -76,24 +62,7 @@
                 }
             ],
             "stateMutability": "view",
-            "type": "function",
-            "constant": true,
-            "signature": "0xb9c05c29"
-        },
-        {
-            "inputs": [],
-            "name": "getNickname",
-            "outputs": [
-                {
-                    "internalType": "string",
-                    "name": "",
-                    "type": "string"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function",
-            "constant": true,
-            "signature": "0xabe4136f"
+            "type": "function"
         },
         {
             "inputs": [
@@ -126,16 +95,6 @@
                             "internalType": "string",
                             "name": "content",
                             "type": "string"
-                        },
-                        {
-                            "internalType": "address[]",
-                            "name": "upVoters",
-                            "type": "address[]"
-                        },
-                        {
-                            "internalType": "address[]",
-                            "name": "downVoters",
-                            "type": "address[]"
                         },
                         {
                             "components": [
@@ -181,9 +140,7 @@
                 }
             ],
             "stateMutability": "view",
-            "type": "function",
-            "constant": true,
-            "signature": "0xdb88176f"
+            "type": "function"
         },
         {
             "inputs": [],
@@ -200,11 +157,6 @@
                             "internalType": "string",
                             "name": "text",
                             "type": "string"
-                        },
-                        {
-                            "internalType": "int256",
-                            "name": "reputation",
-                            "type": "int256"
                         }
                     ],
                     "internalType": "struct main.Pack[]",
@@ -213,9 +165,7 @@
                 }
             ],
             "stateMutability": "view",
-            "type": "function",
-            "constant": true,
-            "signature": "0x97221ab7"
+            "type": "function"
         },
         {
             "inputs": [
@@ -239,30 +189,7 @@
                 }
             ],
             "stateMutability": "view",
-            "type": "function",
-            "constant": true,
-            "signature": "0xde6f9768"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "questionId",
-                    "type": "uint256"
-                }
-            ],
-            "name": "getReputationQ",
-            "outputs": [
-                {
-                    "internalType": "int256",
-                    "name": "",
-                    "type": "int256"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function",
-            "constant": true,
-            "signature": "0x0348026b"
+            "type": "function"
         },
         {
             "inputs": [
@@ -280,8 +207,7 @@
             "name": "makeAnswer",
             "outputs": [],
             "stateMutability": "nonpayable",
-            "type": "function",
-            "signature": "0x026e96a6"
+            "type": "function"
         },
         {
             "inputs": [
@@ -299,40 +225,7 @@
             "name": "makeQuestion",
             "outputs": [],
             "stateMutability": "nonpayable",
-            "type": "function",
-            "signature": "0x585bdb4a"
-        },
-        {
-            "inputs": [],
-            "name": "showUser",
-            "outputs": [
-                {
-                    "components": [
-                        {
-                            "internalType": "string",
-                            "name": "nickname",
-                            "type": "string"
-                        },
-                        {
-                            "internalType": "uint256[]",
-                            "name": "askedQuestions",
-                            "type": "uint256[]"
-                        },
-                        {
-                            "internalType": "uint256[]",
-                            "name": "answeredQuestions",
-                            "type": "uint256[]"
-                        }
-                    ],
-                    "internalType": "struct main.User",
-                    "name": "",
-                    "type": "tuple"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function",
-            "constant": true,
-            "signature": "0xbdb09c12"
+            "type": "function"
         },
         {
             "inputs": [
@@ -350,8 +243,7 @@
             "name": "toggleBestAnswer",
             "outputs": [],
             "stateMutability": "nonpayable",
-            "type": "function",
-            "signature": "0x3b9ca9a8"
+            "type": "function"
         },
         {
             "inputs": [
@@ -369,22 +261,7 @@
             "name": "toggleDownvoteA",
             "outputs": [],
             "stateMutability": "nonpayable",
-            "type": "function",
-            "signature": "0x1a450cd3"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "questionId",
-                    "type": "uint256"
-                }
-            ],
-            "name": "toggleDownvoteQ",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function",
-            "signature": "0xbf897899"
+            "type": "function"
         },
         {
             "inputs": [
@@ -402,22 +279,7 @@
             "name": "toggleUpvoteA",
             "outputs": [],
             "stateMutability": "nonpayable",
-            "type": "function",
-            "signature": "0x2e6f781b"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "questionId",
-                    "type": "uint256"
-                }
-            ],
-            "name": "toggleUpvoteQ",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function",
-            "signature": "0xf656220b"
+            "type": "function"
         }
     ]
 }
